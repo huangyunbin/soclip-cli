@@ -1,0 +1,43 @@
+{
+  "name": "soclip-cli",
+  "version": "0.2.0",
+  "description": "CLI tool to extract social video media direct links and metadata via Soclip API",
+  "homepage": "https://soclip.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/soclip/soclip.git"
+  },
+  "license": "MIT",
+  "keywords": [
+    "tiktok",
+    "youtube",
+    "instagram",
+    "video",
+    "downloader",
+    "api",
+    "cli",
+    "soclip"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "dist"
+  ],
+  "bin": {
+    "soclip": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs --clean",
+    "prepublishOnly": "npm run build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.0",
+    "tsup": "^8.3.6",
+    "typescript": "^5.7.3"
+  }
+}
