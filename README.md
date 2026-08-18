@@ -1,20 +1,31 @@
-# soclip-cli
+# soclip
 
-> Official CLI tool to extract social video media direct links and metadata from TikTok, YouTube, Instagram, X/Twitter, and more via [soclip.dev](https://soclip.dev).
+**TikTok / YouTube / Instagram video download API — as a CLI.**
 
-## Installation
+Give it a social video URL, get direct media links and metadata back. No yt-dlp to host, no proxies, no scraping stack.
+
+[Website](https://soclip.dev) · [Docs](https://soclip.dev/docs) · [Get 500 free credits](https://soclip.dev) · [npm](https://www.npmjs.com/package/soclip-cli)
+
+[![npm](https://img.shields.io/npm/v/soclip-cli.svg)](https://www.npmjs.com/package/soclip-cli)
+[![license](https://img.shields.io/npm/l/soclip-cli.svg)](./LICENSE)
+[![node](https://img.shields.io/node/v/soclip-cli.svg)](https://www.npmjs.com/package/soclip-cli)
 
 ```bash
-npm install -g soclip-cli
+npm i -g soclip-cli
+soclip config set-key <your-api-key>          # key from https://soclip.dev
+soclip "https://www.tiktok.com/@user/video/…" --quality best
 ```
 
-> Package name is `soclip-cli`. The command it installs is `soclip`.
-> Docs for `soclip-cli@0.2.0` — last updated 2026-08-07.
-> Machine-readable docs for AI agents: <https://soclip.dev/llms.txt>
+Package name is `soclip-cli`. The command it installs is `soclip`.
+Machine-readable docs for agents: <https://soclip.dev/llms.txt>
+
+## Why not yt-dlp
+
+yt-dlp is excellent on a laptop. In a worker, a bot, or an MCP tool it means maintaining extractors, IP rotation, and breakage. soclip is the same job as an HTTP API: URL in, JSON + direct links out. `$0.002` per call, 500 free credits, credits never expire.
 
 ## Setup API Key
 
-Get your API key at [https://soclip.dev](https://soclip.dev), then save it:
+Get your API key at [https://soclip.dev](https://soclip.dev) (GitHub login), then save it:
 
 ```bash
 soclip config set-key <your-api-key>
@@ -121,15 +132,44 @@ soclip "https://www.tiktok.com/@scout2015/video/6718335390841801990" --json
 - **X / Twitter** (Videos, GIFs)
 - **Douyin, Bilibili, Kuaishou**, and more.
 
+## HTTP API
+
+Same account, same key:
+
+```bash
+curl -X POST https://api.soclip.dev/v1/media \
+  -H "Authorization: Bearer sc_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
+```
+
+Landing pages: [TikTok](https://soclip.dev/api/tiktok-video-download-api) · [YouTube](https://soclip.dev/api/youtube-video-download-api) · [Instagram](https://soclip.dev/api/instagram-video-download-api)
+
 ## Pricing
 
 1 credit = $0.001. Each successful media extraction costs 2 credits ($0.002). Credits never expire. Get started with free trial credits at [https://soclip.dev](https://soclip.dev).
+
+## MCP (Claude Desktop / Cursor)
+
+```json
+{
+  "mcpServers": {
+    "soclip": {
+      "command": "npx",
+      "args": ["-y", "soclip-mcp"],
+      "env": { "SOCLIP_API_KEY": "sc_live_your_api_key" }
+    }
+  }
+}
+```
+
+If you already ran `soclip config set-key`, the `env` block can be omitted.
 
 ## Documentation
 
 - Full docs: <https://soclip.dev/docs>
 - Plain-text docs for AI agents: <https://soclip.dev/llms.txt>
-- MCP server for Claude Desktop / Cursor: [`soclip-mcp`](https://www.npmjs.com/package/soclip-mcp)
+- MCP package: [`soclip-mcp`](https://www.npmjs.com/package/soclip-mcp)
 
 ## License
 
