@@ -42,9 +42,9 @@ configCmd
 
 // Default command / url positional argument
 program
-  .argument("[url]", "Social video URL (TikTok, YouTube, Instagram, X, etc.)")
+  .argument("[url]", "Social video URL (TikTok, Instagram, X, Facebook)")
   .option("--json", "Output complete raw JSON response from backend")
-  .option("--quality <quality>", "Output a single direct link line (best, worst, or height e.g. 720)")
+  .option("--quality <quality>", "Output a single direct link line (best, worst, hd, sd, audio)")
   .action(async (url: string | undefined, options: { json?: boolean; quality?: string }) => {
     // If no arguments or command passed, show help
     if (!url) {
@@ -102,7 +102,7 @@ program
         const res = m.width && m.height ? ` [${m.width}x${m.height}]` : "";
         console.log(`  - ${label}${res}`);
       }
-      console.log("\nUse --quality best|worst|<height> to get a direct link, or --json for the full response.");
+      console.log("\nUse --quality best|worst|hd|sd|audio to get a direct link, or --json for the full response.");
     }
   });
 

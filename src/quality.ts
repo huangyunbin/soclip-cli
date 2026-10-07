@@ -16,6 +16,18 @@ export function selectQualityMedia(medias: MediaItem[], qualityOpt: string): Med
 
   const normalized = qualityOpt.trim().toLowerCase();
 
+  const tagged = medias.find((m) => m.quality === normalized);
+  if (tagged) {
+    return tagged;
+  }
+
+  // Entries tagged hd/sd instead of carrying a height: the list order is the ranking.
+  if (!medias.some((m) => m.height)) {
+    const videos = medias.filter((m) => m.type === "video");
+    const pool = videos.length > 0 ? videos : medias;
+    return normalized === "worst" ? pool[pool.length - 1] : pool[0];
+  }
+
   if (normalized === "best") {
     // Pick media with maximum height
     return medias.reduce(

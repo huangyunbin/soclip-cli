@@ -1,7 +1,7 @@
 {
   "name": "soclip-cli",
-  "version": "0.2.2",
-  "description": "TikTok / YouTube / Instagram video download API CLI — direct links and metadata. Hosted alternative to running yt-dlp yourself.",
+  "version": "0.3.0",
+  "description": "TikTok / Instagram / X / Facebook video download API CLI — direct links and metadata. Hosted alternative to running yt-dlp yourself.",
   "homepage": "https://soclip.dev",
   "repository": {
     "type": "git",
@@ -13,7 +13,6 @@
   "license": "MIT",
   "keywords": [
     "tiktok",
-    "youtube",
     "instagram",
     "tiktok-api",
     "video-download-api",
@@ -22,7 +21,8 @@
     "downloader",
     "api",
     "cli",
-    "soclip"
+    "soclip",
+    "facebook"
   ],
   "engines": {
     "node": ">=18"

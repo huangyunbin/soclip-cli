@@ -1,6 +1,6 @@
 # soclip
 
-**TikTok / YouTube / Instagram video download API — as a CLI.**
+**TikTok / Instagram / X / Facebook video download API — as a CLI.**
 
 Give it a social video URL, get direct media links and metadata back. No yt-dlp to host, no proxies, no scraping stack.
 
@@ -54,45 +54,42 @@ touching your saved config.
 ### 1. Extract Video Summary & Available Qualities
 
 ```bash
-soclip "https://www.tiktok.com/@scout2015/video/6718335390841801990"
+soclip "https://www.tiktok.com/@tiktok/video/7106594312292453675"
 ```
 
 **Output:**
 ```text
-Title:     Scout's favorite game!
+Title:     how many frogs did you find? 🐸
 Source:    tiktok
 Duration:  15s
-Thumbnail: https://p16-sign-va.tiktokcdn.com/obj/tos-maliva-p-0068/123456789.jpg
+Thumbnail: https://p16-common-sign.tiktokcdn-us.com/...
 
-Qualities (2):
-  - 1080p [1080x1920]
-  - 720p [720x1280]
+Qualities (3):
+  - HD
+  - SD
+  - Audio
 
-Use --quality best|worst|<height> to get a direct link, or --json for the full response.
+Use --quality best|worst|hd|sd|audio to get a direct link, or --json for the full response.
 ```
 
 ### 2. Output Direct Video Link (`--quality`)
 
 ```bash
-soclip "https://www.tiktok.com/@scout2015/video/6718335390841801990" --quality best
+soclip "https://www.tiktok.com/@tiktok/video/7106594312292453675" --quality best
 ```
 
 **Output:**
 ```text
-https://v16-webapp-prime.tiktok.com/video/tos/useast2a/tos-useast2a-ve-0068c001/ogB...
+https://api.soclip.dev/v1/dl?url=...&q=hd
 ```
 
 Accepted values:
 
 | Value      | Meaning                             |
 | ---------- | ----------------------------------- |
-| `best`     | Highest available resolution        |
-| `worst`    | Lowest available resolution         |
-| `<height>` | A number, e.g. `720` or `1080`      |
-
-> **Numeric matching is nearest-match, not exact.** If you ask for `720` and the
-> video only offers 480p and 1080p, you get 480p — no error, no warning. Run
-> `--json` first if you need to know which resolutions actually exist.
+| `best`     | The HD video (first entry)          |
+| `worst`    | The lowest video version (SD if any)|
+| `hd` / `sd` / `audio` | That exact entry          |
 
 ### 2b. Download the file
 
@@ -121,16 +118,15 @@ Balance: 100 credits
 ### Optional: Full JSON Output
 
 ```bash
-soclip "https://www.tiktok.com/@scout2015/video/6718335390841801990" --json
+soclip "https://www.tiktok.com/@tiktok/video/7106594312292453675" --json
 ```
 
 ## Supported Platforms
 
 - **TikTok** (Videos, Slides)
-- **YouTube** (Shorts, Standard Videos)
 - **Instagram** (Reels, Posts)
 - **X / Twitter** (Videos, GIFs)
-- **Douyin, Bilibili, Kuaishou**, and more.
+- **Facebook** (Videos, Reels)
 
 ## HTTP API
 
@@ -140,10 +136,10 @@ Same account, same key:
 curl -X POST https://api.soclip.dev/v1/media \
   -H "Authorization: Bearer sc_live_your_api_key" \
   -H "Content-Type: application/json" \
-  -d '{"url":"https://www.youtube.com/watch?v=dQw4w9WgXcQ"}'
+  -d '{"url":"https://www.tiktok.com/@tiktok/video/7106594312292453675"}'
 ```
 
-Landing pages: [TikTok](https://soclip.dev/api/tiktok-video-download-api) · [YouTube](https://soclip.dev/api/youtube-video-download-api) · [Instagram](https://soclip.dev/api/instagram-video-download-api)
+Landing pages: [TikTok](https://soclip.dev/api/tiktok-video-download-api) · [Instagram](https://soclip.dev/api/instagram-video-download-api)
 
 ## Pricing
 
